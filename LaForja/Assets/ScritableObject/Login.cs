@@ -9,7 +9,5 @@ public class Login : ScriptableObject
     public string correo;
     public string contraseña;
     public int seleccion;
-    public Sprite fotoPersonaje;
-    public GameObject personajes;
     public int monedas;
 }
