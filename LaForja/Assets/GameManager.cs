@@ -1,21 +1,44 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.UI;
+using TMPro;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
-    public PlayFabManager playFabManager;
-    public int puntajeFinal;
-    void Start()
+    public TMP_InputField nickname;
+    public TMP_InputField correo;
+    public TMP_InputField contraseña;
+    public Toggle recuerdame;
+    public Login loginScr;
+    public Animator aniPanel;
+    public string seleccionPersonaje;
+    public void Start()
     {
-        playFabManager = GameObject.Find("PlayFabManager").GetComponent<PlayFabManager>();
+        if (recuerdame.isOn == true)
+        {
+            nickname.text = loginScr.nickName;
+            correo.text = loginScr.correo;
+            contraseña.text = loginScr.contraseña;
+        }
+        else
+        {
+            nickname.text = null;
+            correo.text = null;
+            contraseña.text = null;
+        }
     }
-    public void Resultados(int puntaje)
+    public void InicioSecion()
     {
-        puntajeFinal = puntaje;
+        loginScr.nickName=nickname.text;
+        loginScr.correo=correo.text;
+        loginScr.contraseña=contraseña.text;
+        aniPanel.SetBool("Panel", true);
+        StartCoroutine("CargaEscena");
     }
-    public void GameOver()
+    IEnumerator CargaEscena()
     {
-        playFabManager.SendLeaderboard(puntajeFinal);
+        yield return new WaitForSecondsRealtime(2);
+        SceneManager.LoadScene(seleccionPersonaje);
     }
 }
