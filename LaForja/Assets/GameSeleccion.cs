@@ -14,6 +14,7 @@ public class GameSeleccion : MonoBehaviour
     public Sprite[] personajeFoto;
     public int seleccion;
     public Animator[] aniPersonaje;
+    public GameObject panel;
 
     public void Awake()
     {
@@ -41,6 +42,7 @@ public class GameSeleccion : MonoBehaviour
     {
         loginInfo.seleccion = seleccion;
         aniPersonaje[seleccion].SetBool("Seleccionado", true);
+        StartCoroutine("CargaEscena");
 
     }
     public void Siguiente()
@@ -55,7 +57,14 @@ public class GameSeleccion : MonoBehaviour
             personaje[i].SetActive(false);
             personaje[seleccion].SetActive(true);
             peronajeUI.sprite = personajeFoto[seleccion];
+
         }
+
+    }
+    IEnumerator CargaEscena()
+    {
+        yield return new WaitForSecondsRealtime(5);
+        panel.SetActive(true);
 
     }
     public void Anterior()
